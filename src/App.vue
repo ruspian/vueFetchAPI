@@ -10,13 +10,7 @@ import { RouterView, RouterLink } from 'vue-router'
     </nav>
   </header>
 
-  <!-- suspense component digunakan untuk menampilkan loading sebelum data utama ditampilkan -->
-  <Suspense>
-    <template #default>
-      <RouterView />
-    </template>
-    <template #fallback> Loading... </template>
-  </Suspense>
+  <RouterView />
 </template>
 
 <style scoped>

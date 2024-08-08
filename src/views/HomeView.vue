@@ -1,39 +1,70 @@
 <script setup>
 import PageButton from "@/components/PageButton.vue";
 import Product from "@/components/Product.vue";
-import { ref, watch } from "vue";
+import { ref, watchEffect } from "vue";
 import axios from "axios";
+import Loading from "@/components/Loading.vue";
 
 const page = ref(1);
 const limit = ref(9);
 const products = ref([]);
+const isLoading = ref(true);
 
-// memanggil API dengan komponen async langsung
-products.value = await axios
-  .get(
-    `http://localhost:3000/products?_page=${page.value}&_per_page=${limit.value}`
-  )
-  .then((response) => {
-    return response.data;
-  });
 
-// memanggil API dengan watch untuk pindah page
-watch(page, async () => {
-  products.value = await axios
-    .get(
-      `http://localhost:3000/products?_page=${page.value}&_per_page=${limit.value}`
-    )
-    .then((response) => {
-      return response.data;
-    });
+// fungsi ambil data API
+async function ambilData() {
+  const baseUrl = `http://localhost:3000/products?_page=${page.value}&_per_page=${limit.value}`;
+  try {
+    isLoading.value = true;
+    const response = await axios.get(baseUrl);
+    products.value = response.data;
+  } catch (error) {
+    alert(error);
+  } finally {
+    isLoading.value = false;
+  }
+}
+
+// memanggil API dengan fungsi watchEffect untuk menggantikan watch dan onMounted
+watchEffect(() => {
+  ambilData();
 });
+
+// memanggil API dengan onMounted
+// onMounted(async () => {
+//   try {
+//     // memanggil API dengan komponen async langsung
+//     products.value = await axios.get(`http://localhost:3000/products?_page=${page.value}&_per_page=${limit.value}`).then((response) => {
+//       return response.data;
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   } finally {
+//     isLoading.value = false;
+//   }
+// });
+
+// // memanggil API dengan watch untuk pindah page
+// watch(page, async () => {
+//   try {
+//     // memanggil API dengan komponen async langsung
+//     isLoading.value = true;
+//     products.value = await axios.get(`http://localhost:3000/products?_page=${page.value}&_per_page=${limit.value}`).then((response) => {
+//       return response.data;
+//     });
+//   } catch (error) {
+//     console.log(error);
+//   } finally {
+//     isLoading.value = false;
+//   }
+// });
 
 // fungsi pindah page
 function pindahPage(pageBaru) {
-  if(pageBaru < 1) return;
-  if(pageBaru > products.value.pages) return;
+  if (pageBaru < 1) return;
+  if (pageBaru > products.value.pages) return;
   page.value = pageBaru;
-}
+};
 
 // memanggil API dengan fungsi async
 // async function ambilProduct() {
@@ -46,14 +77,14 @@ function pindahPage(pageBaru) {
 </script>
 
 <template>
-  <main>
+  <!-- Loading Component -->
+  <div class="loading" v-if="isLoading">
+    <Loading />
+  </div>
+  <main v-else>
     <div class="product-grid">
       <!-- Product Cards -->
-      <Product
-        v-for="(product, index) in products.data"
-        :key="index"
-        :product="product"
-      />
+      <Product v-for="(product, index) in products.data" :key="index" :product="product" />
     </div>
 
     <!-- Pagination -->
@@ -64,6 +95,12 @@ function pindahPage(pageBaru) {
 </template>
 
 <style scoped>
+.loading {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
 .product-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
