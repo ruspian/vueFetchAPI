@@ -1,39 +1,11 @@
 {
   "products": [
     {
-      "title": "Electric Standing Desk ",
-      "description": "Create a comfortable and ergonomic workspace with this adjustable electric standing desk.",
-      "price": 449,
-      "image": "https://via.placeholder.com/150",
-      "id": "9"
-    },
-    {
-      "id": "10",
-      "title": "Smart Home Security System",
-      "description": "Protect your home with this smart security system featuring cameras and sensors.",
-      "price": 349.99,
-      "image": "https://via.placeholder.com/150"
-    },
-    {
-      "id": "11",
-      "title": "Wireless Charging Pad",
-      "description": "Charge your compatible devices effortlessly with this sleek wireless charging pad.",
-      "price": 39.99,
-      "image": "https://via.placeholder.com/150"
-    },
-    {
-      "id": "12",
-      "title": "Ultra-Thin Laptop Stand",
-      "description": "Elevate your laptop for ergonomic use with this ultra-thin and portable laptop stand.",
-      "price": 29.99,
-      "image": "https://via.placeholder.com/150"
-    },
-    {
-      "id": "13",
-      "title": "Smart Thermostat",
+      "title": "Lenovo Thinkpad",
       "description": "Control and monitor your home's temperature with this intelligent and energy-efficient smart thermostat.",
-      "price": 129.99,
-      "image": "https://via.placeholder.com/150"
+      "price": 130,
+      "image": "https://via.placeholder.com/150",
+      "id": "13"
     },
     {
       "id": "14",
@@ -362,6 +334,13 @@
       "title": "Compact Countertop Microwave",
       "description": "Effortlessly heat and cook your meals with this compact countertop microwave featuring multiple cooking presets.",
       "price": 79.99,
+      "image": "https://via.placeholder.com/150"
+    },
+    {
+      "id": "0127",
+      "title": "Advan Tablet",
+      "description": "Tablet Advan powerfull made in Indonesia",
+      "price": 999,
       "image": "https://via.placeholder.com/150"
     }
   ]

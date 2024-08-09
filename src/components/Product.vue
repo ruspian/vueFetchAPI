@@ -1,18 +1,32 @@
 <script setup>
+import { useRouter } from 'vue-router';
+
+
+// memanggil props dari komponen induk/sebelah
 const { product } = defineProps({
     product: Object
 });
+
+const router = useRouter();
+
+// fungsi pindah ke product detail
+function keProductDetail() {
+    router.push(`/product/${product.id}`);
+}
+
 </script>
 
 
 
 <template>
     <!-- Product -->
-    <div class="product-card">
+    <div class="product-card" @click="keProductDetail">
         <img :src="product.image" alt="Product 1" class="product-image">
         <h2 class="product-title">{{ product.title }}</h2>
         <p class="product-description">{{ product.description }}</p>
-        <span class="product-price">${{ product.price }}</span>
+        <div class="product-price-container">
+            <span class="product-price">${{ product.price }}</span>
+        </div>
     </div>
 </template>
 
@@ -48,6 +62,14 @@ const { product } = defineProps({
 .product-description {
     font-size: 14px;
     margin-top: 5px;
+}
+
+.product-price-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+
 }
 
 .product-price {

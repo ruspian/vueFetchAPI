@@ -4,6 +4,7 @@ import Product from "@/components/Product.vue";
 import { ref, watchEffect } from "vue";
 import axios from "axios";
 import Loading from "@/components/Loading.vue";
+import ProductForm from "@/components/ProductForm.vue";
 
 const page = ref(1);
 const limit = ref(9);
@@ -74,6 +75,20 @@ function pindahPage(pageBaru) {
 // }
 
 // ambilProduct();
+
+
+// fungsi buat/tambah product baru
+async function tambahProduct(product) {
+  try {
+    const response = await axios.post(`http://localhost:3000/products`, product);
+    if (response.status === 201) {
+      ambilData();
+      alert("Product Berhasil Ditambah");
+    }
+  } catch (error) {
+    alert(error);
+  }
+}
 </script>
 
 <template>
@@ -82,6 +97,7 @@ function pindahPage(pageBaru) {
     <Loading />
   </div>
   <main v-else>
+    <ProductForm @tambahProduct="tambahProduct" />
     <div class="product-grid">
       <!-- Product Cards -->
       <Product v-for="(product, index) in products.data" :key="index" :product="product" />
